@@ -10,11 +10,12 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
 
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private Animator playerAnimator;
 
-    [SerializeField]
-    private float speed = 5f;
-    [SerializeField]
-    private float jumpHeight = 100f;
+    public float speed = 2f;
+
+    public float runSpeed = 5f;
+    private float jumpHeight = 15f;
     private float gravity = -9.81f;
     private float groundCastDist = 0.05f;
     private bool grounded = false;
@@ -42,11 +43,31 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(playerTransform.position, Vector3.down, grounded ? Color.green : Color.red);
 
         
-        // Ground Movemnet
+        // Ground Movement
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");   
         Vector3 movement = (playerTransform.right * x + playerTransform.forward * z);
-        controller.Move(movement * speed * Time.deltaTime);  
+        if (movement.magnitude > 0)
+        {
+            playerAnimator.SetBool("isWalking", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isWalking", false); 
+        }
+        if (Input.GetKey(KeyCode.LeftShift))
+        { 
+            controller.Move(movement * runSpeed * Time.deltaTime);
+            playerAnimator.SetBool("isRunning", true);
+        }
+        else
+        {
+            controller.Move(movement * speed * Time.deltaTime);  
+            playerAnimator.SetBool("isRunning", false);
+
+        }
+        
+        
         
         // Rotate
         playerTransform.rotation = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up);
@@ -57,7 +78,19 @@ public class PlayerController : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpHeight);
         }
+
+        if (grounded)
+        {
+            playerAnimator.SetBool("isJumping", false);
+
+        }
+        else
+        {
+            playerAnimator.SetBool("isJumping", true); 
+        }
+        
         controller.Move(velocity * Time.deltaTime);
+        
     }
 
     private void OnApplicationFocus(bool hasFocus)
