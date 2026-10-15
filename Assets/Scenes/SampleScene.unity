@@ -391,17 +391,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 3481be93eb9283a42ac37cc43abf5add,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3481be93eb9283a42ac37cc43abf5add,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3481be93eb9283a42ac37cc43abf5add,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3481be93eb9283a42ac37cc43abf5add,
         type: 3}
@@ -445,7 +445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 422131599}
   speed: 5
-  jumpHeight: 2
+  jumpHeight: 10
 --- !u!143 &422131599
 CharacterController:
   m_ObjectHideFlags: 0
